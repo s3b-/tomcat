@@ -2085,8 +2085,18 @@
         <contains text="Failures: 0, Errors: 0" />
       </not>
     </fileset>
+    <condition property="test.status.skippedtests"
+               value="None"
+               else="">
+       <equals arg1="${toString:test.result.skippedtests}" arg2=""/>
+    </condition>
+    <condition property="test.status.failedtests"
+               value="None"
+               else="">
+      <equals arg1="${toString:test.result.failedtests}" arg2=""/>
+    </condition>
     <concat>
-      <header>Testsuites with skipped tests:${line.separator}</header>
+      <header>Testsuites with skipped tests: ${test.status.skippedtests}${line.separator}</header>
       <string>${toString:test.result.skippedtests}</string>
       <filterchain>
         <tokenfilter delimOutput="${line.separator}">
@@ -2095,7 +2105,7 @@
       </filterchain>
     </concat>
     <concat>
-      <header>Testsuites with failed tests:${line.separator}</header>
+      <header>Testsuites with failed tests: ${test.status.failedtests}${line.separator}</header>
       <string>${toString:test.result.failedtests}</string>
       <filterchain>
         <tokenfilter delimOutput="${line.separator}">
